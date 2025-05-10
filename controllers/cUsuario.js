@@ -115,11 +115,20 @@ let cUser = {
     }
   },
   logout: (req, res) => {
-    req.session.destroy();
-    res.send(
-      JSON.stringify({ status: 200, mensaje: "Logged out successfully." })
-    );
-    return;
+    req.session.destroy((err) => {
+      if (err) {
+        return res.status(500).json({ mensaje: "Error logging out." });
+      }
+
+      // Elimina la cookie del lado del cliente
+      res.clearCookie("connect.sid", {
+        path: "/",
+        httpOnly: true,
+        secure: false,
+      });
+
+      res.status(200).json({ mensaje: "Logged out successfully." });
+    });
   },
   updateProfile: [
     // Recogemos el archivo con name img
@@ -246,6 +255,7 @@ let cUser = {
   },
 
   session: (req, res) => {
+    console.log(req.session);
     try {
       if (req.session.user) {
         res.send(
@@ -350,7 +360,7 @@ let cUser = {
         cloudinary.uploader.destroy(public_id);
       }
       await mUsuario.delete(dni);
-      req.session.destroy();
+      cUser.logout();
 
       res.send(
         JSON.stringify({
