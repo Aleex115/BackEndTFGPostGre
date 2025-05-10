@@ -32,10 +32,11 @@ const RedisStoreInstance = new RedisStore({ client: redisClient });
 // Middleware
 app.use(
   cors({
-    origin: "*", // Cambia a tu frontend si es necesario
-    credentials: true,
+    origin: "http://localhost:4200", // Asegúrate de que coincida con tu frontend
+    credentials: true, // Permite el envío de cookies y cabeceras de autenticación
   })
 );
+
 app.use(helmet());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
