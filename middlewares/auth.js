@@ -5,7 +5,6 @@ export let isAuthenticated = (req, res, next) => {
     return next();
   }
   error.e401(req, res, {
-    message: "Unauthorized. Please log in.",
-    session: req.session,
+    message: req.session,
   });
 };
