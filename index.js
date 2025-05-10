@@ -23,17 +23,11 @@ const port = process.env.PORT || 3000;
 
 const client = createClient({
   url: process.env.REDIS_URL,
-  username: "default",
-  password: "gboHcnAJrohEH6vxIvHgW0os1xrevRe0",
-  socket: {
-    host: "redis-11307.c250.eu-central-1-1.ec2.redns.redis-cloud.com",
-    port: 11307,
-  },
 });
+
 client.connect().catch(console.error);
 
-// Crear el RedisStore con el cliente de Redis conectado
-const RedisStoreInstance = new RedisStore({ client: client });
+const RedisStoreInstance = new RedisStore({ client });
 
 // Middleware
 app.use(
@@ -55,9 +49,10 @@ app.use(
     saveUninitialized: false,
     cookie: {
       path: "/",
-      secure: false, // Cambiar a true en producción con HTTPS
+      secure: process.env.NODE_ENV === "production", // ✅ Asegura que en producción la cookie sea HTTPS-only
       httpOnly: true,
-      maxAge: 1000 * 60 * 60 * 24 * 7, // 7 días
+      sameSite: "lax", // Opcional pero recomendado para sesiones
+      maxAge: 1000 * 60 * 60 * 24 * 7,
     },
   })
 );
