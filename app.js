@@ -49,6 +49,8 @@ app.use(helmet());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+app.set("trust proxy", 1);
+
 app.use(
   session({
     store: new RedisStore({ client: redisClient }),
@@ -57,15 +59,14 @@ app.use(
     saveUninitialized: false,
     secret: process.env.SESSION_SECRET,
     cookie: {
-      path: "/",
-      secure: true, // Asegúrate de usar HTTPS
+      secure: true, // sólo HTTPS
+      sameSite: "None", // permite envío cross-site
       httpOnly: true,
-      sameSite: "None", // Permite cookies entre dominios
-      maxAge: 1000 * 60 * 60 * 24 * 7, // 7 días
+      maxAge: 7 * 24 * 60 * 60 * 1000,
     },
   })
 );
-// probar ngronk
+
 // ——— Rutas ———
 app.use(routesUsuarios);
 app.use(routesPublicaciones);
