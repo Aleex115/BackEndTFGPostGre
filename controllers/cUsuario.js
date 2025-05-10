@@ -72,6 +72,7 @@ let cUser = {
           session: req.session,
         })
       );
+
       return;
     } catch (err) {
       console.log(err);
