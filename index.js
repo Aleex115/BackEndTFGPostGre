@@ -22,6 +22,7 @@ const port = process.env.PORT || 3000;
 // Configuración de Redis
 
 const client = createClient({
+  url: process.env.REDIS_URL,
   username: "default",
   password: "gboHcnAJrohEH6vxIvHgW0os1xrevRe0",
   socket: {
@@ -50,11 +51,11 @@ app.use(
   session({
     store: RedisStoreInstance, // Usamos el RedisStore con el cliente de Redis
     secret: process.env.SESSION_SECRET,
-    resave: false,
+    resave: true,
     saveUninitialized: false,
     cookie: {
       path: "/",
-      secure: true, // Cambiar a true en producción con HTTPS
+      secure: false, // Cambiar a true en producción con HTTPS
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24 * 7, // 7 días
     },
