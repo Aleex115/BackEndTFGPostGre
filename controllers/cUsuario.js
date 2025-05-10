@@ -69,6 +69,7 @@ let cUser = {
         JSON.stringify({
           status: 200,
           mensaje: "Session created successfully.",
+          session: req.session,
         })
       );
       return;
