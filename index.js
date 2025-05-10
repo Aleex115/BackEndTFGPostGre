@@ -20,14 +20,19 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 // Configuración de Redis
-const redisClient = createClient({
-  url: process.env.REDIS_URL, // Usa tu URL de Redis desde el archivo .env
-});
 
-redisClient.connect().catch(console.error);
+const client = createClient({
+  username: "default",
+  password: "gboHcnAJrohEH6vxIvHgW0os1xrevRe0",
+  socket: {
+    host: "redis-11307.c250.eu-central-1-1.ec2.redns.redis-cloud.com",
+    port: 11307,
+  },
+});
+client.connect().catch(console.error);
 
 // Crear el RedisStore con el cliente de Redis conectado
-const RedisStoreInstance = new RedisStore({ client: redisClient });
+const RedisStoreInstance = new RedisStore({ client: client });
 
 // Middleware
 app.use(
