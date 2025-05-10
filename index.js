@@ -32,7 +32,7 @@ const RedisStoreInstance = new RedisStore({ client: redisClient });
 // Middleware
 app.use(
   cors({
-    origin: ["http://localhost:4200", "https://image-hub-sigma.vercel.app/"], // Añadimos la nueva URL
+    origin: ["http://localhost:4200", "https://image-hub-sigma.vercel.app"], // Sin la barra al final
     credentials: true, // Permite el envío de cookies y cabeceras de autenticación
   })
 );
