@@ -1,4 +1,5 @@
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
+
 import db from "../config/db.js";
 import usuarioE from "../public/estados/eUsuarios.js";
 

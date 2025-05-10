@@ -1,4 +1,4 @@
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import error from "../middlewares/error.js";
 import mUsuario from "../models/mUsuario.js";
 import mPublicaciones from "../models/mPublicaciones.js";
