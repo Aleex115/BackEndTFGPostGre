@@ -27,10 +27,21 @@ const redisClient = createClient({
 redisClient.connect().catch(console.error);
 
 // ——— Middleware ———
+// Ajustar CORS para manejar dinámicamente los dominios permitidos
 app.use(
   cors({
-    origin: ["http://localhost:4200", "https://image-hub-sigma.vercel.app"],
-    credentials: true,
+    origin: (origin, callback) => {
+      const allowedOrigins = [
+        "https://image-hub-sigma.vercel.app",
+        "http://localhost:4200",
+      ];
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("No permitido por CORS"));
+      }
+    },
+    credentials: true, // Permite el envío de cookies y credenciales
   })
 );
 
@@ -42,19 +53,18 @@ app.use(
   session({
     store: new RedisStore({ client: redisClient }),
     name: "sid",
-    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
+    secret: process.env.SESSION_SECRET,
     cookie: {
       path: "/",
-      secure: true, // Necesario para HTTPS en producción
+      secure: true,
       httpOnly: true,
-      sameSite: "none", // Necesario para cross-origin en producción
       maxAge: 1000 * 60 * 60 * 24 * 7, // 7 días
     },
   })
 );
-
+// probar ngronk
 // ——— Rutas ———
 app.use(routesUsuarios);
 app.use(routesPublicaciones);
