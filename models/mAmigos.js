@@ -46,7 +46,8 @@ let mAmigos = {
         SELECT 
           u.dni, 
           u.username, 
-          u.foto_perfil
+          u.foto_perfil,
+          u.descp
         FROM usuarios u
         INNER JOIN amigos a 
           ON (a.dni_persona1 = ${dni} AND a.dni_persona2 = u.dni) 
