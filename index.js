@@ -11,29 +11,26 @@ import routesComentarios from "./routes/rComentarios.js";
 import routesAmigos from "./routes/rAmigos.js";
 import routesPeticiones from "./routes/rPeticiones.js";
 import { createClient } from "redis";
-import { RedisStore } from "connect-redis"; // Importación correcta de RedisStore
+import { RedisStore } from "connect-redis"; // ✅ Named export, no default
+
 import dotenv from "dotenv";
 
-dotenv.config(); // Cargar .env
+dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Configuración de Redis
-
-const client = createClient({
+const redisClient = createClient({
   url: process.env.REDIS_URL,
 });
 
-client.connect().catch(console.error);
+redisClient.connect().catch(console.error);
 
-const RedisStoreInstance = new RedisStore({ client });
-
-// Middleware
+// ——— Middleware ———
 app.use(
   cors({
-    origin: ["http://localhost:4200", "https://image-hub-sigma.vercel.app"], // Sin la barra al final
-    credentials: true, // Permite el envío de cookies y cabeceras de autenticación
+    origin: ["http://localhost:4200", "https://image-hub-sigma.vercel.app"],
+    credentials: true,
   })
 );
 
@@ -43,29 +40,33 @@ app.use(express.json());
 
 app.use(
   session({
-    store: RedisStoreInstance, // Usamos el RedisStore con el cliente de Redis
+    store: new RedisStore({ client: redisClient }), // ← y aquí
+    name: "sid",
     secret: process.env.SESSION_SECRET,
-    resave: true,
+    resave: false,
     saveUninitialized: false,
     cookie: {
       path: "/",
-      secure: process.env.NODE_ENV === "production", // ✅ Asegura que en producción la cookie sea HTTPS-only
+      secure: process.env.NODE_ENV === "production",
       httpOnly: true,
-      sameSite: "lax", // Opcional pero recomendado para sesiones
+      sameSite: "lax",
       maxAge: 1000 * 60 * 60 * 24 * 7,
     },
   })
 );
 
-// Rutas
+// ——— Rutas ———
 app.use(routesUsuarios);
 app.use(routesPublicaciones);
 app.use(isAuthenticated, routesLike);
 app.use(isAuthenticated, routesComentarios);
 app.use(isAuthenticated, routesAmigos);
 app.use(isAuthenticated, routesPeticiones);
+
+// Middleware de error 404
 app.use(error.e404);
 
+// Arranque del servidor
 app.listen(port, () => {
-  console.log(`La aplicación está funcionando en http://localhost:${port}`);
+  console.log(`🚀 Servidor escuchando en http://localhost:${port}`);
 });
