@@ -65,15 +65,20 @@ let cUser = {
       }
       req.session.user = user;
 
-      res.send(
-        JSON.stringify({
-          status: 200,
-          mensaje: "Session created successfully.",
-          session: req.session,
-        })
-      );
-
-      return;
+      req.session.save((err) => {
+        if (err) {
+          console.error("Error saving session:", err);
+          return error.e500(req, res, { mensaje: "Failed to save session" });
+        }
+        console.log("Session saved:", req.sessionID, req.session.user);
+        res.send(
+          JSON.stringify({
+            status: 200,
+            mensaje: "Session created successfully.",
+            session: req.session.user,
+          })
+        );
+      });
     } catch (err) {
       console.log(err);
       error.e500(req, res, err);

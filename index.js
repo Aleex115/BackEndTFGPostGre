@@ -40,17 +40,17 @@ app.use(express.json());
 
 app.use(
   session({
-    store: new RedisStore({ client: redisClient }), // ← y aquí
+    store: new RedisStore({ client: redisClient }),
     name: "sid",
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: {
       path: "/",
-      secure: true,
+      secure: true, // Necesario para HTTPS en producción
       httpOnly: true,
-      sameSite: "lax",
-      maxAge: 1000 * 60 * 60 * 24 * 7,
+      sameSite: "none", // Necesario para cross-origin en producción
+      maxAge: 1000 * 60 * 60 * 24 * 7, // 7 días
     },
   })
 );
