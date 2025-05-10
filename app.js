@@ -58,8 +58,9 @@ app.use(
     secret: process.env.SESSION_SECRET,
     cookie: {
       path: "/",
-      secure: true,
+      secure: true, // Asegúrate de usar HTTPS
       httpOnly: true,
+      sameSite: "None", // Permite cookies entre dominios
       maxAge: 1000 * 60 * 60 * 24 * 7, // 7 días
     },
   })
