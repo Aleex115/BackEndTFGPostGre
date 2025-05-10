@@ -32,7 +32,7 @@ const RedisStoreInstance = new RedisStore({ client: redisClient });
 // Middleware
 app.use(
   cors({
-    origin: "http://localhost:4200", // Cambia a tu frontend si es necesario
+    origin: "*", // Cambia a tu frontend si es necesario
     credentials: true,
   })
 );
