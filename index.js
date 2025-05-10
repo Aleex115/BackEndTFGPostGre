@@ -49,7 +49,7 @@ app.use(
     saveUninitialized: false,
     cookie: {
       path: "/",
-      secure: false, // Cambiar a true en producción con HTTPS
+      secure: true, // Cambiar a true en producción con HTTPS
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24 * 7, // 7 días
     },
