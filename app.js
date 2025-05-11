@@ -26,21 +26,9 @@ const redisClient = createClient({
 
 redisClient.connect().catch(console.error);
 
-// ——— Middleware ———
-// Ajustar CORS para manejar dinámicamente los dominios permitidos
 app.use(
   cors({
-    origin: (origin, callback) => {
-      const allowedOrigins = [
-        "https://image-hub-sigma.vercel.app",
-        "http://localhost:4200",
-      ];
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("No permitido por CORS"));
-      }
-    },
+    origin: ["https://image-hub-sigma.vercel.app", "http://localhost:4200"],
     credentials: true, // Permite el envío de cookies y credenciales
   })
 );
