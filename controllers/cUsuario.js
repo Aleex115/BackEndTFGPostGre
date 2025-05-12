@@ -44,11 +44,11 @@ let cUser = {
       }
       if (results.length === 0) {
         let err = {
-          status: 401,
+          status: 403,
           mensaje: `The user ${username} was not found in the database.`,
         };
 
-        error.e401(req, res, err);
+        error.e400(req, res, err);
         return;
       }
       let user = results[0];
@@ -60,7 +60,7 @@ let cUser = {
           mensaje: "Incorrect password.",
         };
 
-        error.e403(req, res, err);
+        error.e400(req, res, err);
         return;
       }
       req.session.user = user;

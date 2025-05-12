@@ -17,7 +17,6 @@ let mUsario = {
     } catch (err) {
       console.log(err);
       if (err.code === "23505") {
-        // Código de error para duplicados en PostgreSQL
         throw {
           status: 400,
           message: `A user with these details already exists`,
