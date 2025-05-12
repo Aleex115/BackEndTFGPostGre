@@ -114,8 +114,8 @@ let cUser = {
         JSON.stringify({ status: 200, message: "User created successfully." })
       );
     } catch (err) {
-      if (err.status === 400) {
-        error.e400(req, res, err);
+      if (err.status === 403) {
+        error.e403(req, res, err);
       } else {
         error.e500(req, res, err);
       }
