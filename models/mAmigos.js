@@ -15,7 +15,7 @@ let mAmigos = {
       console.log(err);
       throw {
         status: 500,
-        message: `Error following`,
+        mensaje: `Error following`,
       };
     }
   },
@@ -36,7 +36,7 @@ let mAmigos = {
       console.log(err);
       throw {
         status: 500,
-        message: `Error deleting following`,
+        mensaje: `Error deleting following`,
       };
     }
   },
@@ -58,7 +58,7 @@ let mAmigos = {
       console.log(err);
       throw {
         status: 500,
-        message: `Error retrieving friends for dni ${dni}`,
+        mensaje: `Error retrieving friends for dni ${dni}`,
       };
     }
   },

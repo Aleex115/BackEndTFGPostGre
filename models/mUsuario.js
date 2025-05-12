@@ -18,13 +18,13 @@ let mUsario = {
       console.log(err);
       if (err.code === "23505") {
         throw {
-          status: 400,
-          message: `A user with these details already exists`,
+          status: 403,
+          mensaje: `A user with these details already exists`,
         };
       } else {
         throw {
           status: 500,
-          message: `Error creating user ${user.username}`,
+          mensaje: `Error creating user ${user.username}`,
         };
       }
     }
@@ -83,7 +83,7 @@ let mUsario = {
       console.log(err);
       throw {
         status: 500,
-        message: `Error retrieving user ${username}`,
+        mensaje: `Error retrieving user ${username}`,
       };
     }
   },
@@ -120,7 +120,7 @@ let mUsario = {
       console.log(err);
       throw {
         status: 500,
-        message: `Error retrieving users matching ${username}`,
+        mensaje: `Error retrieving users matching ${username}`,
       };
     }
   },
@@ -134,7 +134,7 @@ let mUsario = {
       console.log(err);
       throw {
         status: 500,
-        message: `Error retrieving the password for user ${username}`,
+        mensaje: `Error retrieving the password for user ${username}`,
       };
     }
   },
@@ -151,7 +151,7 @@ let mUsario = {
       console.log(err);
       throw {
         status: 500,
-        message: `Error updating the password for ${user.username}`,
+        mensaje: `Error updating the password for ${user.username}`,
       };
     }
   },
@@ -171,7 +171,7 @@ let mUsario = {
       console.log(err);
       throw {
         status: 500,
-        message: `Error updating the profile data for ${user.username}`,
+        mensaje: `Error updating the profile data for ${user.username}`,
       };
     }
   },
@@ -186,7 +186,7 @@ let mUsario = {
       console.log(err);
       throw {
         status: 500,
-        message: `Error deleting the user`,
+        mensaje: `Error deleting the user`,
       };
     }
   },
