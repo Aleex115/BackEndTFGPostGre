@@ -48,7 +48,7 @@ let cUser = {
           mensaje: `The user ${username} was not found in the database.`,
         };
 
-        error.e400(req, res, err);
+        error.e403(req, res, err);
         return;
       }
       let user = results[0];
@@ -60,7 +60,7 @@ let cUser = {
           mensaje: "Incorrect password.",
         };
 
-        error.e400(req, res, err);
+        error.e403(req, res, err);
         return;
       }
       req.session.user = user;

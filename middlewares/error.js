@@ -2,8 +2,8 @@ let error = {
   e400: (req, res, err) => {
     res.status(400).send(
       JSON.stringify({
-        title: "Error 400 Bad Request",
-        message: err.message,
+        title: "Error 400",
+        message: err.mensaje,
       })
     );
   },
@@ -11,15 +11,16 @@ let error = {
     res.status(401).send(
       JSON.stringify({
         title: "Error 401 Authorization Required",
-        message: err.message,
+        message: err.mensaje,
       })
     );
   },
   e403: (req, res, err) => {
+    console.log(err);
     res.status(403).send(
       JSON.stringify({
         title: "Error 403 Forbidden",
-        message: err.message,
+        message: err.mensaje,
       })
     );
   },
@@ -35,7 +36,7 @@ let error = {
     res.status(500).send(
       JSON.stringify({
         title: "Error 500 Internal Server",
-        message: err.message,
+        message: err.mensaje,
       })
     );
   },
