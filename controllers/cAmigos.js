@@ -10,7 +10,7 @@ let cAmigos = {
       if (!dni || !dniSession)
         throw {
           status: 400,
-          mensaje: `All fields are required.`,
+          message: `All fields are required.`,
         };
 
       await mAmigos.create({ dni, dniSession });
@@ -18,7 +18,7 @@ let cAmigos = {
       res.send(
         JSON.stringify({
           status: 200,
-          mensaje: "The user has been followed successfully.",
+          message: "The user has been followed successfully.",
         })
       );
       return;
@@ -38,7 +38,7 @@ let cAmigos = {
       if (!dni || !dniSession)
         throw {
           status: 400,
-          mensaje: `All fields are required.`,
+          message: `All fields are required.`,
         };
 
       await mAmigos.delete({ dni, dniSession });
@@ -46,7 +46,7 @@ let cAmigos = {
       res.send(
         JSON.stringify({
           status: 200,
-          mensaje: "The user has been unfollowed successfully.",
+          message: "The user has been unfollowed successfully.",
         })
       );
       return;
@@ -64,7 +64,7 @@ let cAmigos = {
       if (!dni)
         throw {
           status: 400,
-          mensaje: `All fields are required.`,
+          message: `All fields are required.`,
         };
 
       let result = await mAmigos.getAll(dni);
@@ -72,7 +72,7 @@ let cAmigos = {
       res.send(
         JSON.stringify({
           status: 200,
-          mensaje: "Friends retrieved successfully.",
+          message: "Friends retrieved successfully.",
           result,
         })
       );

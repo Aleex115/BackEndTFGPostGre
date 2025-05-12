@@ -16,7 +16,7 @@ let mComentarios = {
       console.error(err);
       throw {
         status: 500,
-        mensaje: "Error commenting",
+        message: "Error commenting",
       };
     }
   },
@@ -32,7 +32,7 @@ let mComentarios = {
       console.error(err);
       throw {
         status: 500,
-        mensaje: "Error deleting like",
+        message: "Error deleting like",
       };
     }
   },
@@ -57,7 +57,7 @@ let mComentarios = {
       console.error(err);
       throw {
         status: 500,
-        mensaje: "Error getting comments",
+        message: "Error getting comments",
       };
     }
   },

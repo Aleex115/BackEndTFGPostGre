@@ -13,7 +13,7 @@ let cComentarios = {
       if (!dni || !id || !com)
         throw {
           status: 400,
-          mensaje: `All fields are required.`,
+          message: `All fields are required.`,
         };
 
       await mComentarios.create({ dni, id, com });
@@ -21,7 +21,7 @@ let cComentarios = {
       res.send(
         JSON.stringify({
           status: 200,
-          mensaje: "The comment has been added successfully.",
+          message: "The comment has been added successfully.",
         })
       );
       return;
@@ -41,7 +41,7 @@ let cComentarios = {
       if (!dni || !id)
         throw {
           status: 400,
-          mensaje: `All fields are required.`,
+          message: `All fields are required.`,
         };
 
       await mComentarios.delete({ dni, id });
@@ -49,7 +49,7 @@ let cComentarios = {
       res.send(
         JSON.stringify({
           status: 200,
-          mensaje: "The comment has been deleted successfully.",
+          message: "The comment has been deleted successfully.",
         })
       );
       return;
@@ -67,7 +67,7 @@ let cComentarios = {
       if (!id)
         throw {
           status: 400,
-          mensaje: `All fields are required.`,
+          message: `All fields are required.`,
         };
 
       let results = await mComentarios.getAllFromPubli(id, dni);
@@ -75,7 +75,7 @@ let cComentarios = {
       res.send(
         JSON.stringify({
           status: 200,
-          mensaje: "Comments retrieved successfully.",
+          message: "Comments retrieved successfully.",
           comments: results,
         })
       );

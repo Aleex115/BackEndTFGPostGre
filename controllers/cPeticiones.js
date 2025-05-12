@@ -11,7 +11,7 @@ let cPetition = {
       if (!dni || !dniSession)
         throw {
           status: 400,
-          mensaje: `All fields are required.`,
+          message: `All fields are required.`,
         };
 
       await mPeticiones.create({ dni, dniSession });
@@ -19,7 +19,7 @@ let cPetition = {
       res.send(
         JSON.stringify({
           status: 200,
-          mensaje: "The petition has been sent successfully.",
+          message: "The petition has been sent successfully.",
         })
       );
       return;
@@ -39,7 +39,7 @@ let cPetition = {
       if (!dni || !dniSession)
         throw {
           status: 400,
-          mensaje: `All fields are required.`,
+          message: `All fields are required.`,
         };
 
       await mPeticiones.delete({ dni, dniSession });
@@ -47,7 +47,7 @@ let cPetition = {
       res.send(
         JSON.stringify({
           status: 200,
-          mensaje: "The petition has been deleted successfully.",
+          message: "The petition has been deleted successfully.",
         })
       );
       return;
@@ -64,7 +64,7 @@ let cPetition = {
       if (!dni)
         throw {
           status: 400,
-          mensaje: `All fields are required.`,
+          message: `All fields are required.`,
         };
 
       let results = await mPeticiones.getUserPetitions(dni);
@@ -72,7 +72,7 @@ let cPetition = {
       res.send(
         JSON.stringify({
           status: 200,
-          mensaje: "The petitions have been retrieved successfully.",
+          message: "The petitions have been retrieved successfully.",
           total: results,
         })
       );
@@ -93,7 +93,7 @@ let cPetition = {
       if (!dni || !dniSession)
         throw {
           status: 400,
-          mensaje: `All fields are required.`,
+          message: `All fields are required.`,
         };
 
       await mPeticiones.delete({ dni, dniSession });
@@ -102,7 +102,7 @@ let cPetition = {
       res.send(
         JSON.stringify({
           status: 200,
-          mensaje: "The request has been accepted successfully.",
+          message: "The request has been accepted successfully.",
         })
       );
       return;

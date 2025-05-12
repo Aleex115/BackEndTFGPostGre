@@ -40,12 +40,12 @@ let cUser = {
       let results = await mUsuario.getOne(username);
 
       if (!username || !pwd) {
-        throw { status: 400, mensaje: "All fields are required." };
+        throw { status: 400, message: "All fields are required." };
       }
       if (results.length === 0) {
         let err = {
           status: 403,
-          mensaje: `The user ${username} was not found in the database.`,
+          message: `The user ${username} was not found in the database.`,
         };
 
         error.e403(req, res, err);
@@ -57,7 +57,7 @@ let cUser = {
       if (!isMatch) {
         let err = {
           status: 403,
-          mensaje: "Incorrect password.",
+          message: "Incorrect password.",
         };
 
         error.e403(req, res, err);
@@ -68,13 +68,13 @@ let cUser = {
       req.session.save((err) => {
         if (err) {
           console.error("Error saving session:", err);
-          return error.e500(req, res, { mensaje: "Failed to save session" });
+          return error.e500(req, res, { message: "Failed to save session" });
         }
         console.log("Session saved:", req.sessionID, req.session.user);
         res.send(
           JSON.stringify({
             status: 200,
-            mensaje: "Session created successfully.",
+            message: "Session created successfully.",
             session: req.session.user,
           })
         );
@@ -93,25 +93,25 @@ let cUser = {
       if (!dni || !username || !email || !pwd)
         throw {
           status: 400,
-          mensaje: `All fields are required.`,
+          message: `All fields are required.`,
         };
 
       if (!dniValidator(dni))
         throw {
           status: 400,
-          mensaje: `The DNI is not valid.`,
+          message: `The DNI is not valid.`,
         };
 
       if (!emailValidator(email))
         throw {
           status: 400,
-          mensaje: `The email is not valid.`,
+          message: `The email is not valid.`,
         };
 
       await mUsuario.create({ dni, email, username, pwd });
 
       res.send(
-        JSON.stringify({ status: 200, mensaje: "User created successfully." })
+        JSON.stringify({ status: 200, message: "User created successfully." })
       );
     } catch (err) {
       if (err.status === 400) {
@@ -124,7 +124,7 @@ let cUser = {
   logout: (req, res) => {
     req.session.destroy((err) => {
       if (err) {
-        return res.status(500).json({ mensaje: "Error logging out." });
+        return res.status(500).json({ message: "Error logging out." });
       }
 
       // Elimina la cookie del lado del cliente
@@ -134,7 +134,7 @@ let cUser = {
         secure: false,
       });
 
-      res.status(200).json({ mensaje: "Logged out successfully." });
+      res.status(200).json({ message: "Logged out successfully." });
     });
   },
   updateProfile: [
@@ -147,7 +147,7 @@ let cUser = {
         let dni = req.session.user.dni;
 
         if (!username || !descp || !id_estadou || !email) {
-          throw { status: 400, mensaje: "All fields are required." };
+          throw { status: 400, message: "All fields are required." };
         }
         if (req.file) {
           // Verificamos la extensión de la imagen
@@ -157,7 +157,7 @@ let cUser = {
           if (!validExtensions.includes(extension)) {
             throw {
               status: 400,
-              mensaje: `Unsupported file format. Allowed extensions: ${validExtensions.join(
+              message: `Unsupported file format. Allowed extensions: ${validExtensions.join(
                 ", "
               )}`,
             };
@@ -204,7 +204,7 @@ let cUser = {
         // Respuesta
         res.send({
           status: 200,
-          mensaje: "Profile updated successfully.",
+          message: "Profile updated successfully.",
         });
       } catch (err) {
         console.log(err);
@@ -225,7 +225,7 @@ let cUser = {
       let { newPwd, oldPwd } = req.body;
 
       if (!newPwd || !oldPwd) {
-        throw { status: 400, mensaje: "All fields are required." };
+        throw { status: 400, message: "All fields are required." };
       }
       let user = req.session.user;
 
@@ -235,7 +235,7 @@ let cUser = {
       if (!isMatch) {
         let err = {
           status: 403,
-          mensaje: "Incorrect password.",
+          message: "Incorrect password.",
         };
 
         error.e403(req, res, err);
@@ -245,7 +245,7 @@ let cUser = {
       res.send(
         JSON.stringify({
           status: 200,
-          mensaje: "Password updated successfully.",
+          message: "Password updated successfully.",
         })
       );
 
@@ -268,13 +268,13 @@ let cUser = {
         res.send(
           JSON.stringify({
             status: 200,
-            mensaje: "There is an active session.",
+            message: "There is an active session.",
           })
         );
       } else {
         throw {
           status: 401,
-          mensaje: "There is no active session.",
+          message: "There is no active session.",
         };
       }
     } catch (err) {
@@ -294,7 +294,7 @@ let cUser = {
       res.send(
         JSON.stringify({
           status: 200,
-          mensaje: "Users retrieved successfully.",
+          message: "Users retrieved successfully.",
           users: results,
         })
       );
@@ -320,7 +320,7 @@ let cUser = {
       res.send(
         JSON.stringify({
           status: 200,
-          mensaje: "User retrieved successfully.",
+          message: "User retrieved successfully.",
           user: {
             dni: user[0].dni,
             id_estadou: user[0].id_estadou,
@@ -355,7 +355,7 @@ let cUser = {
       if (!dni)
         throw {
           status: 400,
-          mensaje: `All fields are required.`,
+          message: `All fields are required.`,
         };
 
       let publi = await mPublicaciones.getAllFromUser(dni);
@@ -372,7 +372,7 @@ let cUser = {
       res.send(
         JSON.stringify({
           status: 200,
-          mensaje: "User deleted successfully.",
+          message: "User deleted successfully.",
         })
       );
       return;

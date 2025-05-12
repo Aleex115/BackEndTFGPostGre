@@ -14,7 +14,7 @@ let mPublicaciones = {
       console.log(err);
       throw {
         status: 500,
-        mensaje: `Error uploading the photo ${publi.title}`,
+        message: `Error uploading the photo ${publi.title}`,
       };
     }
   },
@@ -45,7 +45,7 @@ let mPublicaciones = {
       console.log(err);
       throw {
         status: 500,
-        mensaje: `Error getting the photos of ${username}`,
+        message: `Error getting the photos of ${username}`,
       };
     }
   },
@@ -67,7 +67,7 @@ let mPublicaciones = {
       console.log(err);
       throw {
         status: 500,
-        mensaje: `Error getting the photos of ${dni}`,
+        message: `Error getting the photos of ${dni}`,
       };
     }
   },
@@ -96,7 +96,7 @@ let mPublicaciones = {
       console.log(err);
       throw {
         status: 500,
-        mensaje: `Error getting public photos`,
+        message: `Error getting public photos`,
       };
     }
   },
@@ -114,7 +114,7 @@ let mPublicaciones = {
       console.log(err);
       throw {
         status: 500,
-        mensaje: `Error counting the photos of ${username}`,
+        message: `Error counting the photos of ${username}`,
       };
     }
   },
@@ -131,7 +131,7 @@ let mPublicaciones = {
       console.log(err);
       throw {
         status: 500,
-        mensaje: `Error counting public photos`,
+        message: `Error counting public photos`,
       };
     }
   },
@@ -145,7 +145,7 @@ let mPublicaciones = {
     } catch (err) {
       throw {
         status: 500,
-        mensaje: `Error deleting the photo`,
+        message: `Error deleting the photo`,
       };
     }
   },

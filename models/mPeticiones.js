@@ -14,7 +14,7 @@ let mPeticiones = {
       console.log(err);
       throw {
         status: 500,
-        mensaje: `Error sending petition`,
+        message: `Error sending petition`,
       };
     }
   },
@@ -34,7 +34,7 @@ let mPeticiones = {
       console.log(err);
       throw {
         status: 500,
-        mensaje: `Error deleting petition`,
+        message: `Error deleting petition`,
       };
     }
   },
@@ -57,7 +57,7 @@ let mPeticiones = {
       console.log(err);
       throw {
         status: 500,
-        mensaje: `Error getting petitions`,
+        message: `Error getting petitions`,
       };
     }
   },

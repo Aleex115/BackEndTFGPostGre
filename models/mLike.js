@@ -14,7 +14,7 @@ let mLike = {
       console.log(err);
       throw {
         status: 500,
-        mensaje: `Error giving like`,
+        message: `Error giving like`,
       };
     }
   },
@@ -29,7 +29,7 @@ let mLike = {
       console.log(err);
       throw {
         status: 500,
-        mensaje: `Error deleting like`,
+        message: `Error deleting like`,
       };
     }
   },
@@ -45,7 +45,7 @@ let mLike = {
       console.log(err);
       throw {
         status: 500,
-        mensaje: `Error counting like`,
+        message: `Error counting like`,
       };
     }
   },

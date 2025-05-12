@@ -30,7 +30,7 @@ let cPublicaciones = {
         let { title, descp } = req.body;
         console.log(req.file);
         if (!title || !descp || !req.file) {
-          throw { status: 400, mensaje: "All fields are required." };
+          throw { status: 400, message: "All fields are required." };
         }
 
         // Verificamos la extensión de la imagen
@@ -40,7 +40,7 @@ let cPublicaciones = {
         if (!validExtensions.includes(extension)) {
           throw {
             status: 400,
-            mensaje: `Unsupported file format. Allowed extensions: ${validExtensions.join(
+            message: `Unsupported file format. Allowed extensions: ${validExtensions.join(
               ", "
             )}`,
           };
@@ -72,7 +72,7 @@ let cPublicaciones = {
         // Respuesta
         res.send({
           status: 200,
-          mensaje: "The publication has been created successfully.",
+          message: "The publication has been created successfully.",
         });
       } catch (err) {
         console.error(err);
@@ -98,7 +98,7 @@ let cPublicaciones = {
         res.send(
           JSON.stringify({
             status: 200,
-            mensaje: "There are no more photos to display.",
+            message: "There are no more photos to display.",
             total: totalPublicaciones,
           })
         );
@@ -114,7 +114,7 @@ let cPublicaciones = {
       res.send(
         JSON.stringify({
           status: 200,
-          mensaje: "Publications retrieved successfully.",
+          message: "Publications retrieved successfully.",
           publicaciones,
           total: totalPublicaciones,
         })
@@ -138,7 +138,7 @@ let cPublicaciones = {
         res.send(
           JSON.stringify({
             status: 200,
-            mensaje: "There are no more photos to display.",
+            message: "There are no more photos to display.",
             total: totalPublicaciones,
           })
         );
@@ -152,7 +152,7 @@ let cPublicaciones = {
       res.send(
         JSON.stringify({
           status: 200,
-          mensaje: "Publications retrieved successfully.",
+          message: "Publications retrieved successfully.",
           publicaciones,
           total: totalPublicaciones,
         })
@@ -175,7 +175,7 @@ let cPublicaciones = {
       if (!dni || !id)
         throw {
           status: 400,
-          mensaje: `All fields are required.`,
+          message: `All fields are required.`,
         };
 
       await mPublicaciones.delete(dni, id);
@@ -185,7 +185,7 @@ let cPublicaciones = {
       res.send(
         JSON.stringify({
           status: 200,
-          mensaje: "The publication has been deleted successfully.",
+          message: "The publication has been deleted successfully.",
         })
       );
       return;
@@ -205,7 +205,7 @@ let cPublicaciones = {
       if (!url)
         throw {
           status: 400,
-          mensaje: `All fields are required.`,
+          message: `All fields are required.`,
         };
       url = decodeURIComponent(url);
       quality = quality || 100;
@@ -240,7 +240,7 @@ let cPublicaciones = {
         default:
           throw {
             status: 400,
-            mensaje: `Unsupported format. Use 'jpg', 'png', or 'webp'.`,
+            message: `Unsupported format. Use 'jpg', 'png', or 'webp'.`,
           };
       }
 

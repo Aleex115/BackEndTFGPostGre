@@ -12,7 +12,7 @@ let cLike = {
       if (!dni || !id)
         throw {
           status: 400,
-          mensaje: `All fields are required.`,
+          message: `All fields are required.`,
         };
 
       await mLike.create({ dni, id });
@@ -20,7 +20,7 @@ let cLike = {
       res.send(
         JSON.stringify({
           status: 200,
-          mensaje: "The like has been added successfully.",
+          message: "The like has been added successfully.",
         })
       );
       return;
@@ -40,7 +40,7 @@ let cLike = {
       if (!dni || !id)
         throw {
           status: 400,
-          mensaje: `All fields are required.`,
+          message: `All fields are required.`,
         };
 
       await mLike.delete({ dni, id });
@@ -48,7 +48,7 @@ let cLike = {
       res.send(
         JSON.stringify({
           status: 200,
-          mensaje: "The like has been removed successfully.",
+          message: "The like has been removed successfully.",
         })
       );
       return;
@@ -64,7 +64,7 @@ let cLike = {
       if (!id)
         throw {
           status: 400,
-          mensaje: `All fields are required.`,
+          message: `All fields are required.`,
         };
 
       let results = await mLike.getAllFromPubli(id);
@@ -72,7 +72,7 @@ let cLike = {
       res.send(
         JSON.stringify({
           status: 200,
-          mensaje: "Likes retrieved successfully.",
+          message: "Likes retrieved successfully.",
           total: results,
         })
       );
