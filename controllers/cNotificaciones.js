@@ -91,7 +91,7 @@ let cNotificaciones = {
 
   create: async (dni, tipo, id_publi) => {
     try {
-      if (!dni || !tipo || !id_publi) {
+      if (!dni || !tipo) {
         throw {
           status: 500,
           message: "All fields are required are required.",
