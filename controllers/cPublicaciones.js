@@ -90,8 +90,8 @@ let cPublicaciones = {
     try {
       let username = req.query.username || req.session.user.username;
       let usernameSession = req.session.user.username;
-      let title = req.query.title;
-      let descp = req.query.descp;
+      let title = req.query.title || "";
+      let descp = req.query.descp || "";
 
       let limit = 9;
       let offset = parseInt(req.query.offset);
@@ -135,6 +135,8 @@ let cPublicaciones = {
     try {
       let limit = 9;
       let offset = parseInt(req.query.offset) || 0;
+      let title = req.query.title || "";
+      let descp = req.query.descp || "";
 
       let totalPublicaciones = await mPublicaciones.countPublic();
 

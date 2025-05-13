@@ -50,7 +50,8 @@ let mPeticiones = {
           p.dni_persona1 AS dni_session  
         FROM peticiones p  
         JOIN usuarios u ON p.dni_persona2 = u.dni 
-        WHERE p.dni_persona1 = ${dni};
+        WHERE p.dni_persona1 = ${dni}
+        LIMIT 50;
       `;
       return results;
     } catch (err) {

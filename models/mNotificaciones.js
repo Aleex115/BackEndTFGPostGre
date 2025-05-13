@@ -37,18 +37,20 @@ let mNotificaciones = {
   getAll: async (dni) => {
     try {
       let results = await db`
-        SELECT 
-          n.id,
-          n.tipo,
-          n.leido,
-          n.fecha_creacion,
-          u.username,
-          u.foto_perfil
-        FROM notificaciones n
-        INNER JOIN usuarios u 
-          ON n.id_persona = u.dni
-        WHERE n.id_persona = ${dni};
-      `;
+      SELECT 
+        n.id,
+        n.tipo,
+        n.leido,
+        n.fecha_creacion,
+        u.username,
+        u.foto_perfil
+      FROM notificaciones n
+      INNER JOIN usuarios u 
+        ON n.id_persona = u.dni
+      WHERE n.id_persona = ${dni}
+      ORDER BY n.fecha_creacion DESC
+      LIMIT 50;
+    `;
       return results;
     } catch (err) {
       console.log(err);
