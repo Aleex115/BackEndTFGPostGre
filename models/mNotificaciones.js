@@ -4,7 +4,7 @@ let mNotificaciones = {
   create: async (dni, tipo, id_publi, dniSession) => {
     try {
       let results = await db`
-        INSERT INTO notificaciones (tipo, id_persona,id_publi,, id_ejecutor )
+        INSERT INTO notificaciones (tipo, id_persona,id_publi, id_ejecutor )
         VALUES (${tipo}, ${dni}, ${id_publi}, ${dniSession} )
         RETURNING *;
       `;
