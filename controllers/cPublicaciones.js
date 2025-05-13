@@ -244,7 +244,7 @@ let cPublicaciones = {
             message: `Unsupported format. Use 'jpg', 'png', or 'webp'.`,
           };
       }
-      await cNotificaciones.create(dni, "download");
+      await cNotificaciones.create(dniPublication, "download");
 
       // Configuro encabezados para la descarga
       res.setHeader(
