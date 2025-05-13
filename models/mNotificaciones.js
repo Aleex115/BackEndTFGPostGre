@@ -42,11 +42,16 @@ let mNotificaciones = {
         n.tipo,
         n.leido,
         n.fecha_creacion,
+        n.id_ejecutor,
         u.username,
-        u.foto_perfil
+        u.foto_perfil,
+        p.title,
+        p.foto
       FROM notificaciones n
       INNER JOIN usuarios u 
-        ON n.id_persona = u.dni
+        ON n.id_ejecutor = u.dni
+      LEFT JOIN publicaciones p
+        ON n.id_publi = p.id
       WHERE n.id_persona = ${dni}
       ORDER BY n.fecha_creacion DESC
       LIMIT 50;

@@ -28,16 +28,16 @@ let cNotificaciones = {
             message = `${notification.username} removed their like from your post.`;
             break;
           case "like":
-            message = `${notification.username} liked your post.`;
+            message = `${notification.username} liked your post: "${notification.titulo_publicacion}".`;
             break;
           case "dislike":
-            message = `${notification.username} disliked your post.`;
+            message = `${notification.username} disliked your post: "${notification.titulo_publicacion}".`;
             break;
           case "comment":
-            message = `${notification.username} commented on your post.`;
+            message = `${notification.username} commented on your post: "${notification.titulo_publicacion}".`;
             break;
           case "download":
-            message = `${notification.username} downloaded your content.`;
+            message = `${notification.username} downloaded your content: "${notification.titulo_publicacion}".`;
             break;
           default:
             message = `You have a new notification.`;
