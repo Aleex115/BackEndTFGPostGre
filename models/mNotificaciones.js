@@ -1,11 +1,11 @@
 import db from "../config/db.js";
 
 let mNotificaciones = {
-  create: async (dni, tipo, id_publi) => {
+  create: async (dni, tipo, id_publi, dniSession) => {
     try {
       let results = await db`
-        INSERT INTO notificaciones (tipo, id_persona,id_publi )
-        VALUES (${tipo}, ${dni}, ${id_publi} )
+        INSERT INTO notificaciones (tipo, id_persona,id_publi,, id_ejecutor )
+        VALUES (${tipo}, ${dni}, ${id_publi}, ${dniSession} )
         RETURNING *;
       `;
       return results;

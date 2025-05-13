@@ -97,8 +97,14 @@ let cNotificaciones = {
           message: "All fields are required are required.",
         };
       }
+      let dniSession = req.session.user.dni;
 
-      let result = await mNotificaciones.create(dni, tipo, id_publi);
+      let result = await mNotificaciones.create(
+        dni,
+        tipo,
+        id_publi,
+        dniSession
+      );
 
       return result;
     } catch (err) {
