@@ -10,6 +10,8 @@ import routesLike from "./routes/rLike.js";
 import routesComentarios from "./routes/rComentarios.js";
 import routesAmigos from "./routes/rAmigos.js";
 import routesPeticiones from "./routes/rPeticiones.js";
+import routesNotificaciones from "./routes/rNotificaciones.js";
+
 import { createClient } from "redis";
 import { RedisStore } from "connect-redis"; // ✅ Named export, no default
 
@@ -62,6 +64,7 @@ app.use(isAuthenticated, routesLike);
 app.use(isAuthenticated, routesComentarios);
 app.use(isAuthenticated, routesAmigos);
 app.use(isAuthenticated, routesPeticiones);
+app.use(isAuthenticated, routesNotificaciones);
 
 // Middleware de error 404
 app.use(error.e404);
