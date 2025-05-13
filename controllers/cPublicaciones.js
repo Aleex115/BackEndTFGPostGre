@@ -6,6 +6,7 @@ import sharp from "sharp";
 import path from "path";
 import cloudinaryModule from "cloudinary";
 import dotenv from "dotenv";
+import cNotificaciones from "./cNotificaciones.js";
 
 dotenv.config();
 
@@ -201,7 +202,7 @@ let cPublicaciones = {
   download: async (req, res) => {
     try {
       let { url, format, quality } = req.query;
-
+      let dni = req.session.user.dni;
       if (!url)
         throw {
           status: 400,
@@ -243,6 +244,7 @@ let cPublicaciones = {
             message: `Unsupported format. Use 'jpg', 'png', or 'webp'.`,
           };
       }
+      await cNotificaciones.create(dni, "download");
 
       // Configuro encabezados para la descarga
       res.setHeader(

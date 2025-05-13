@@ -1,6 +1,7 @@
 import error from "../middlewares/error.js";
 import mPeticiones from "../models/mPeticiones.js";
 import mAmigos from "../models/mAmigos.js";
+import cNotificaciones from "./cNotificaciones.js";
 
 let cPetition = {
   create: async (req, res) => {
@@ -15,6 +16,7 @@ let cPetition = {
         };
 
       await mPeticiones.create({ dni, dniSession });
+      await cNotificaciones.create(dniSession, "requested");
 
       res.send(
         JSON.stringify({
@@ -43,6 +45,7 @@ let cPetition = {
         };
 
       await mPeticiones.delete({ dni, dniSession });
+      await cNotificaciones.create(dniSession, "unrequested");
 
       res.send(
         JSON.stringify({

@@ -1,5 +1,6 @@
 import error from "../middlewares/error.js";
 import mComentarios from "../models/mComentarios.js";
+import cNotificaciones from "./cNotificaciones.js";
 
 let cComentarios = {
   create: async (req, res) => {
@@ -17,6 +18,7 @@ let cComentarios = {
         };
 
       await mComentarios.create({ dni, id, com });
+      await cNotificaciones.create(dni, "comment");
 
       res.send(
         JSON.stringify({

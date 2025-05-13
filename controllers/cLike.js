@@ -1,5 +1,6 @@
 import error from "../middlewares/error.js";
 import mLike from "../models/mLike.js";
+import cNotificaciones from "./cNotificaciones.js";
 
 let cLike = {
   create: async (req, res) => {
@@ -16,6 +17,7 @@ let cLike = {
         };
 
       await mLike.create({ dni, id });
+      await cNotificaciones.create(dni, "like");
 
       res.send(
         JSON.stringify({
@@ -44,6 +46,7 @@ let cLike = {
         };
 
       await mLike.delete({ dni, id });
+      await cNotificaciones.create(dni, "dislike");
 
       res.send(
         JSON.stringify({

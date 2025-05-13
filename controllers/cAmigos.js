@@ -1,5 +1,6 @@
 import error from "../middlewares/error.js";
 import mAmigos from "../models/mAmigos.js";
+import cNotificaciones from "./cNotificaciones.js";
 
 let cAmigos = {
   create: async (req, res) => {
@@ -14,6 +15,7 @@ let cAmigos = {
         };
 
       await mAmigos.create({ dni, dniSession });
+      await cNotificaciones.create(dniSession, "follow");
 
       res.send(
         JSON.stringify({
@@ -42,6 +44,7 @@ let cAmigos = {
         };
 
       await mAmigos.delete({ dni, dniSession });
+      await cNotificaciones.create(dniSession, "unfollow");
 
       res.send(
         JSON.stringify({
