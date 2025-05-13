@@ -201,9 +201,9 @@ let cPublicaciones = {
   },
   download: async (req, res) => {
     try {
-      let { url, format, quality } = req.query;
+      let { url, format, quality, dniPublication } = req.query;
       let dni = req.session.user.dni;
-      if (!url)
+      if (!url || !dniPublication)
         throw {
           status: 400,
           message: `All fields are required.`,

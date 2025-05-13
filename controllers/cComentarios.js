@@ -5,13 +5,13 @@ import cNotificaciones from "./cNotificaciones.js";
 let cComentarios = {
   create: async (req, res) => {
     try {
-      let { dni, id, com } = req.body;
+      let { dni, id, com, dniPublication } = req.body;
       console.log(dni, id, com);
 
       if (!dni) {
         dni = req.session.user.dni;
       }
-      if (!dni || !id || !com)
+      if (!dni || !id || !com || !dniPublication)
         throw {
           status: 400,
           message: `All fields are required.`,

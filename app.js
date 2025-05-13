@@ -28,7 +28,7 @@ redisClient.connect().catch(console.error);
 
 app.use(
   cors({
-    origin: ["https://image-hub-sigma.vercel.app"],
+    origin: ["https://image-hub-sigma.vercel.app", "http://localhost:4200"],
     credentials: true, // Permite el envío de cookies y credenciales
   })
 );

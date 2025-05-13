@@ -5,7 +5,7 @@ import cNotificaciones from "./cNotificaciones.js";
 let cLike = {
   create: async (req, res) => {
     try {
-      let { dni, id } = req.body;
+      let { dni, id, dniPublication } = req.body;
 
       if (!dni) {
         dni = req.session.user.dni;
@@ -34,7 +34,7 @@ let cLike = {
   },
   delete: async (req, res) => {
     try {
-      let { dni, id } = req.query;
+      let { dni, id, dniPublication } = req.query;
 
       if (!dni) {
         dni = req.session.user.dni;
