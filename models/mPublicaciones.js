@@ -38,6 +38,7 @@ let mPublicaciones = {
         FROM publicaciones p 
         JOIN usuarios u ON p.persona_dni = u.dni 
         WHERE u.username LIKE ${username.username}
+        ORDER BY p.id DESC
         LIMIT ${limit} OFFSET ${offset};
       `;
       return results;
@@ -89,6 +90,7 @@ let mPublicaciones = {
         FROM publicaciones p 
         JOIN usuarios u ON p.persona_dni = u.dni 
         WHERE u.id_estadou = 0
+        ORDER BY p.id DESC
         LIMIT ${limit} OFFSET ${offset};
       `;
       return results;
