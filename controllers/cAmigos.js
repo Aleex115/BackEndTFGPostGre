@@ -15,7 +15,7 @@ let cAmigos = {
         };
 
       await mAmigos.create({ dni, dniSession });
-      await cNotificaciones.create(dni, "follow");
+      await cNotificaciones.create(req, dni, "follow");
 
       res.send(
         JSON.stringify({
@@ -44,7 +44,7 @@ let cAmigos = {
         };
 
       await mAmigos.delete({ dni, dniSession });
-      await cNotificaciones.create(dni, "unfollow");
+      await cNotificaciones.create(req, dni, "unfollow");
 
       res.send(
         JSON.stringify({

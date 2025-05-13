@@ -17,7 +17,7 @@ let cLike = {
         };
 
       await mLike.create({ dni, id });
-      await cNotificaciones.create(dniPublication, "like", id);
+      await cNotificaciones.create(req, dniPublication, "like", id);
 
       res.send(
         JSON.stringify({
@@ -46,7 +46,7 @@ let cLike = {
         };
 
       await mLike.delete({ dni, id });
-      await cNotificaciones.create(dniPublication, "dislike", id);
+      await cNotificaciones.create(req, dniPublication, "dislike", id);
 
       res.send(
         JSON.stringify({

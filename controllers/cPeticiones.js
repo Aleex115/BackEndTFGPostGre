@@ -16,7 +16,7 @@ let cPetition = {
         };
 
       await mPeticiones.create({ dni, dniSession });
-      await cNotificaciones.create(dni, "requested");
+      await cNotificaciones.create(req, dni, "requested");
 
       res.send(
         JSON.stringify({
@@ -45,7 +45,7 @@ let cPetition = {
         };
 
       await mPeticiones.delete({ dni, dniSession });
-      await cNotificaciones.create(dni, "unrequested");
+      await cNotificaciones.create(req, dni, "unrequested");
 
       res.send(
         JSON.stringify({

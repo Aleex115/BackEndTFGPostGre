@@ -18,7 +18,7 @@ let cComentarios = {
         };
 
       await mComentarios.create({ dni, id, com });
-      await cNotificaciones.create(dniPublication, "comment", id);
+      await cNotificaciones.create(req, dniPublication, "comment", id);
 
       res.send(
         JSON.stringify({

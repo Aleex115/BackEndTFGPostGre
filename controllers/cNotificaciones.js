@@ -89,7 +89,7 @@ let cNotificaciones = {
     }
   },
 
-  create: async (dni, tipo, id_publi) => {
+  create: async (req, dni, tipo, id_publi) => {
     try {
       if (!dni || !tipo) {
         throw {
