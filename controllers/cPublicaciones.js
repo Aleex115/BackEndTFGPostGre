@@ -201,9 +201,9 @@ let cPublicaciones = {
   },
   download: async (req, res) => {
     try {
-      let { url, format, quality, dniPublication } = req.query;
+      let { url, format, quality, dniPublication, id_publi } = req.query;
       let dni = req.session.user.dni;
-      if (!url || !dniPublication)
+      if (!url || !dniPublication || !id_publi)
         throw {
           status: 400,
           message: `All fields are required.`,
@@ -244,7 +244,7 @@ let cPublicaciones = {
             message: `Unsupported format. Use 'jpg', 'png', or 'webp'.`,
           };
       }
-      await cNotificaciones.create(dniPublication, "download");
+      await cNotificaciones.create(dniPublication, "download", id_publi);
 
       // Configuro encabezados para la descarga
       res.setHeader(

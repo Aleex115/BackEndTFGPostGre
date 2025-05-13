@@ -89,16 +89,16 @@ let cNotificaciones = {
     }
   },
 
-  create: async (dni, tipo) => {
+  create: async (dni, tipo, id_publi) => {
     try {
-      if (!dni || !tipo) {
+      if (!dni || !tipo || !id_publi) {
         throw {
-          status: 400,
-          message: "DNI and notification type are required.",
+          status: 500,
+          message: "All fields are required are required.",
         };
       }
 
-      let result = await mNotificaciones.create(dni, tipo);
+      let result = await mNotificaciones.create(dni, tipo, id_publi);
 
       return result;
     } catch (err) {
