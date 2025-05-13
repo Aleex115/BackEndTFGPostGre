@@ -30,6 +30,7 @@ let mPublicaciones = {
           p.id, 
           p.public_id,
           p.persona_dni,
+          u.foto_perfil,
           EXISTS (
             SELECT 1 
             FROM darlike d 
@@ -84,6 +85,7 @@ let mPublicaciones = {
           p.id,
           p.persona_dni,
           p.public_id,
+          u.foto_perfil,
           EXISTS (
             SELECT 1 
             FROM darlike d 
