@@ -112,7 +112,7 @@ let cPublicaciones = {
         { username, usernameSession },
         limit,
         offset,
-        title
+        filter
       );
 
       res.send(
