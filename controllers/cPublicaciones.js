@@ -29,7 +29,7 @@ let obtenerId = (url) => {
     return public_id;
   }
 };
-
+let public_id;
 let cPublicaciones = {
   create: [
     // Recogemos el archivo con name img , se va a guardar en req.file
@@ -68,7 +68,7 @@ let cPublicaciones = {
             })
             .end(webpBuffer);
         });
-        let public_id = result.public_id;
+        public_id = result.public_id;
 
         await mPublicaciones.create({
           title,

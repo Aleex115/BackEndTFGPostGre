@@ -361,7 +361,7 @@ let cUser = {
       let publi = await mPublicaciones.getAllFromUser(dni);
       publi.forEach(async (el) => {
         await mPublicaciones.delete(dni, el.id);
-        cloudinary.uploader.destroy(el.public_id);
+        cloudinary.uploader.destroy(obtenerId(el.foto));
       });
       if (public_id) {
         cloudinary.uploader.destroy(public_id);

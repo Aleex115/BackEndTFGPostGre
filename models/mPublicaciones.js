@@ -28,7 +28,6 @@ let mPublicaciones = {
           p.descp, 
           p.fecha_creacion, 
           p.id, 
-          p.public_id,
           p.dni_persona,
           u.foto_perfil,
           u.username,
@@ -66,7 +65,6 @@ let mPublicaciones = {
           p.descp, 
           p.fecha_creacion, 
           p.id, 
-          p.public_id
         FROM publicaciones p 
         WHERE p.dni_persona LIKE ${dni}
       `;
@@ -89,7 +87,6 @@ let mPublicaciones = {
           p.fecha_creacion, 
           p.id,
           p.dni_persona,
-          p.public_id,
           u.foto_perfil,
           u.username,
           EXISTS (
