@@ -36,25 +36,25 @@ let mNotificaciones = {
   },
   getAll: async (dni, type, read) => {
     try {
-      const conditions = [sql`n.id_persona = ${dni}`];
+      const conditions = [db`n.id_persona = ${dni}`];
 
       if (type !== undefined && type !== null) {
-        conditions.push(sql`n.tipo = ${type}`);
+        conditions.push(db`n.tipo = ${type}`);
       }
       if (read) {
         // 'read' aquí debe ser booleano o 0/1
-        conditions.push(sql`n.leido = ${read}`);
+        conditions.push(db`n.leido = ${read}`);
       }
 
       // Damos formato a la cláusula WHERE uniendo con AND
       // Empezamos por la primera condición
       let whereClause = conditions.shift();
       for (const cond of conditions) {
-        whereClause = sql`${whereClause} AND ${cond}`;
+        whereClause = db`${whereClause} AND ${cond}`;
       }
 
       // Ejecutamos la consulta completa
-      const notifications = await sql`
+      const notifications = await db`
         SELECT
           n.id,
           n.tipo,
