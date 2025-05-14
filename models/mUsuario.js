@@ -59,11 +59,11 @@ let mUsario = {
         FROM usuarios u
         LEFT JOIN (
           SELECT 
-            p.persona_dni, 
+            p.dni_persona, 
             COUNT(*) AS total_fotos
           FROM publicaciones p
-          GROUP BY p.persona_dni
-        ) pub ON pub.persona_dni = u.dni
+          GROUP BY p.dni_persona
+        ) pub ON pub.dni_persona = u.dni
         LEFT JOIN (
           SELECT 
             s.dni,

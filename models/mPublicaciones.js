@@ -5,7 +5,7 @@ let mPublicaciones = {
     try {
       let fecha = new Date().toISOString().split("T")[0];
       let results = await db`
-        INSERT INTO publicaciones (persona_dni, title, foto, descp, fecha_creacion, public_id)
+        INSERT INTO publicaciones (dni_persona, title, foto, descp, fecha_creacion, public_id)
         VALUES (${publi.dni}, ${publi.title}, ${publi.url}, ${publi.descp}, ${fecha}, ${publi.public_id})
         RETURNING *;
       `;
@@ -29,7 +29,7 @@ let mPublicaciones = {
           p.fecha_creacion, 
           p.id, 
           p.public_id,
-          p.persona_dni,
+          p.dni_persona,
           u.foto_perfil,
           u.username,
           EXISTS (
@@ -41,7 +41,7 @@ let mPublicaciones = {
             } AND d.id_publi = p.id
           ) AS "hasLiked"
         FROM publicaciones p 
-        JOIN usuarios u ON p.persona_dni = u.dni 
+        JOIN usuarios u ON p.dni_persona = u.dni 
         WHERE u.username LIKE ${username.username} AND 
         (p.title ILIKE ${"%" + filter + "%"} OR 
         p.descp ILIKE ${"%" + filter + "%"})
@@ -68,7 +68,7 @@ let mPublicaciones = {
           p.id, 
           p.public_id
         FROM publicaciones p 
-        WHERE p.persona_dni LIKE ${dni}
+        WHERE p.dni_persona LIKE ${dni}
       `;
       return results;
     } catch (err) {
@@ -88,7 +88,7 @@ let mPublicaciones = {
           p.descp, 
           p.fecha_creacion, 
           p.id,
-          p.persona_dni,
+          p.dni_persona,
           p.public_id,
           u.foto_perfil,
           u.username,
@@ -98,7 +98,7 @@ let mPublicaciones = {
             WHERE d.id_publi = p.id
           ) AS "hasLiked"
         FROM publicaciones p 
-        JOIN usuarios u ON p.persona_dni = u.dni 
+        JOIN usuarios u ON p.dni_persona = u.dni 
         WHERE u.id_estadou = 0 AND 
         (p.title ILIKE ${"%" + filter + "%"} OR 
         p.descp ILIKE ${"%" + filter + "%"})
@@ -120,7 +120,7 @@ let mPublicaciones = {
       let results = await db`
         SELECT COUNT(*) AS total 
         FROM publicaciones p 
-        JOIN usuarios u ON p.persona_dni = u.dni 
+        JOIN usuarios u ON p.dni_persona = u.dni 
         WHERE u.username LIKE ${username} AND 
         (p.title ILIKE ${"%" + filter + "%"} OR 
         p.descp ILIKE ${"%" + filter + "%"});
@@ -139,7 +139,7 @@ let mPublicaciones = {
       let results = await db`
         SELECT COUNT(*) AS total 
         FROM publicaciones p 
-        JOIN usuarios u ON p.persona_dni = u.dni  
+        JOIN usuarios u ON p.dni_persona = u.dni  
         WHERE u.id_estadou = 0 AND 
         (p.title ILIKE ${"%" + filter + "%"} OR 
         p.descp ILIKE ${"%" + filter + "%"});
@@ -157,7 +157,7 @@ let mPublicaciones = {
     try {
       let results = await db`
         DELETE FROM publicaciones 
-        WHERE id = ${id} AND persona_dni = ${dni};
+        WHERE id = ${id} AND dni_persona = ${dni};
       `;
       return results;
     } catch (err) {

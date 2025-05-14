@@ -34,21 +34,21 @@ INSERT INTO usuarios (dni, id_cargo, id_estadou, username, email, foto_perfil, d
 -- Create table: publicaciones
 CREATE TABLE publicaciones (
     id SERIAL NOT NULL,
-    persona_dni CHAR(9),
+    dni_persona CHAR(9),
     title VARCHAR(20) NOT NULL,
     foto TEXT NOT NULL,
     descp TEXT,
     fecha_creacion DATE,
     public_id TEXT NOT NULL,
     PRIMARY KEY (id),
-    CONSTRAINT publicaciones_fk_1 FOREIGN KEY (persona_dni) 
+    CONSTRAINT publicaciones_fk_1 FOREIGN KEY (dni_persona) 
         REFERENCES usuarios (dni) 
         ON DELETE CASCADE 
         ON UPDATE CASCADE
 );
 
 -- Insert data into publicaciones
-INSERT INTO publicaciones (id, persona_dni, title, foto, descp, fecha_creacion, public_id) VALUES
+INSERT INTO publicaciones (id, dni_persona, title, foto, descp, fecha_creacion, public_id) VALUES
 (4, '71317778E', 'Mercedes e55 negro', 'https://res.cloudinary.com/dzd8rj08f/image/upload/v1745775446/test/twqpxga3guyrrcx3wpxv.webp', 'Una maravilla', '2025-04-27', 'test/twqpxga3guyrrcx3wpxv'),
 (5, '71317778E', 'Merc e55 amg grey', 'https://res.cloudinary.com/dzd8rj08f/image/upload/v1745775474/test/bfvmtrzaycynm5c29tci.webp', 'The best car in the world', '2025-04-27', 'test/bfvmtrzaycynm5c29tci'),
 (6, '71317778E', 'Nissan skyline', 'https://res.cloudinary.com/dzd8rj08f/image/upload/v1745775540/test/muxdpzlvppaiszbkqaqf.webp', 'r34', '2025-04-27', 'test/muxdpzlvppaiszbkqaqf'),

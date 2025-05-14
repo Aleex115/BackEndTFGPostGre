@@ -4,7 +4,7 @@ let mNotificaciones = {
   create: async (dni, tipo, id_publi, dniSession) => {
     try {
       let results = await db`
-        INSERT INTO notificaciones (tipo, id_persona,id_publi, id_ejecutor )
+        INSERT INTO notificaciones (tipo, dni_persona,id_publi, dni_ejecutor )
         VALUES (${tipo}, ${dni}, ${id_publi}, ${dniSession} )
         RETURNING *;
       `;
@@ -42,17 +42,17 @@ let mNotificaciones = {
         n.tipo,
         n.leido,
         n.fecha_creacion,
-        n.id_ejecutor,
+        n.dni_ejecutor,
         u.username,
         u.foto_perfil,
         p.title,
         p.foto
       FROM notificaciones n
       INNER JOIN usuarios u 
-        ON n.id_ejecutor = u.dni
+        ON n.dni_ejecutor = u.dni
       LEFT JOIN publicaciones p
         ON n.id_publi = p.id
-      WHERE n.id_persona = '${dni}'
+      WHERE n.dni_persona = '${dni}'
       `;
 
       // Agregar filtros dinámicos
