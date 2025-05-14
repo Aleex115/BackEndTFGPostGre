@@ -115,13 +115,15 @@ let mPublicaciones = {
     }
   },
 
-  countByUsername: async (username) => {
+  countByUsername: async (username, filter) => {
     try {
       let results = await db`
         SELECT COUNT(*) AS total 
         FROM publicaciones p 
         JOIN usuarios u ON p.persona_dni = u.dni 
-        WHERE u.username LIKE ${username};
+        WHERE u.username LIKE ${username} AND 
+        (p.title ILIKE ${"%" + filter + "%"} OR 
+        p.descp ILIKE ${"%" + filter + "%"});
       `;
       return results[0].total;
     } catch (err) {
@@ -132,13 +134,15 @@ let mPublicaciones = {
       };
     }
   },
-  countPublic: async () => {
+  countPublic: async (filter) => {
     try {
       let results = await db`
         SELECT COUNT(*) AS total 
         FROM publicaciones p 
         JOIN usuarios u ON p.persona_dni = u.dni  
-        WHERE u.id_estadou = 0;
+        WHERE u.id_estadou = 0 AND 
+        (p.title ILIKE ${"%" + filter + "%"} OR 
+        p.descp ILIKE ${"%" + filter + "%"});
       `;
       return results[0].total;
     } catch (err) {

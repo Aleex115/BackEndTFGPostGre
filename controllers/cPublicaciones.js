@@ -95,7 +95,10 @@ let cPublicaciones = {
       let limit = 9;
       let offset = parseInt(req.query.offset);
       console.log(req.query.username);
-      let totalPublicaciones = await mPublicaciones.countByUsername(username);
+      let totalPublicaciones = await mPublicaciones.countByUsername(
+        username,
+        filter
+      );
 
       if (offset >= totalPublicaciones) {
         res.send(
@@ -137,7 +140,7 @@ let cPublicaciones = {
       let offset = parseInt(req.query.offset) || 0;
       let filter = req.query.filter || "";
 
-      let totalPublicaciones = await mPublicaciones.countPublic();
+      let totalPublicaciones = await mPublicaciones.countPublic(filter);
 
       if (offset >= totalPublicaciones) {
         res.send(
