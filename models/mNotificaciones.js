@@ -36,7 +36,7 @@ let mNotificaciones = {
   },
   getAll: async (dni, type, read) => {
     try {
-      let query = db`
+      let query = `
       SELECT 
         n.id,
         n.tipo,
@@ -57,16 +57,16 @@ let mNotificaciones = {
 
       // Agregar filtros dinámicos
       if (type) {
-        query += db` AND n.tipo = ${type}`;
+        query += ` AND n.tipo = ${type}`;
       }
       if (read !== undefined) {
-        query += db` AND n.leido = ${read}`;
+        query += ` AND n.leido = ${read}`;
       }
 
-      query += db` ORDER BY n.fecha_creacion DESC LIMIT 50`;
+      query += ` ORDER BY n.fecha_creacion DESC LIMIT 50`;
       console.log(query);
 
-      let results = await query;
+      let results = await db.query(query);
       return results;
     } catch (err) {
       console.log(err);

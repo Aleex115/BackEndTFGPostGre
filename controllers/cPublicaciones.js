@@ -112,7 +112,9 @@ let cPublicaciones = {
       let publicaciones = await mPublicaciones.getAllFromUserPaginated(
         { username, usernameSession },
         limit,
-        offset
+        offset,
+        title,
+        descp
       );
 
       res.send(
@@ -152,7 +154,9 @@ let cPublicaciones = {
       }
       let publicaciones = await mPublicaciones.getAllFromPaginated(
         limit,
-        offset
+        offset,
+        title,
+        descp
       );
 
       res.send(
