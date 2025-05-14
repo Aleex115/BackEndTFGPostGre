@@ -19,7 +19,7 @@ let mPublicaciones = {
     }
   },
 
-  getAllFromUserPaginated: async (username, limit, offset) => {
+  getAllFromUserPaginated: async (username, limit, offset, title, descp) => {
     try {
       let results = await db`
         SELECT 
@@ -36,11 +36,15 @@ let mPublicaciones = {
             SELECT 1 
             FROM darlike d 
             JOIN usuarios u2 ON d.dni_persona = u2.dni 
-            WHERE u2.username = ${username.usernameSession} AND d.id_publi = p.id
+            WHERE u2.username = ${
+              username.usernameSession
+            } AND d.id_publi = p.id
           ) AS "hasLiked"
         FROM publicaciones p 
         JOIN usuarios u ON p.persona_dni = u.dni 
-        WHERE u.username LIKE ${username.username}
+        WHERE u.username LIKE ${username.username} AND 
+        (p.title ILIKE ${"%" + title + "%"} OR 
+        p.descp ILIKE ${"%" + descp + "%"})
         ORDER BY p.id DESC
         LIMIT ${limit} OFFSET ${offset};
       `;
@@ -75,7 +79,7 @@ let mPublicaciones = {
       };
     }
   },
-  getAllFromPaginated: async (limit, offset) => {
+  getAllFromPaginated: async (limit, offset, title, descp) => {
     try {
       let results = await db`
         SELECT 

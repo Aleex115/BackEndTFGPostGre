@@ -57,13 +57,14 @@ let mNotificaciones = {
 
       // Agregar filtros dinámicos
       if (type) {
-        query = query.append(db` AND n.tipo = ${type}`);
+        query += db` AND n.tipo = ${type}`;
       }
       if (read !== undefined) {
-        query = query.append(db` AND n.leido = ${read}`);
+        query += db` AND n.leido = ${read}`;
       }
 
-      query = query.append(db` ORDER BY n.fecha_creacion DESC LIMIT 50`);
+      query += db` ORDER BY n.fecha_creacion DESC LIMIT 50`;
+      console.log(query);
 
       let results = await query;
       return results;
