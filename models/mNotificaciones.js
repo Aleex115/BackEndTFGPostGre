@@ -36,8 +36,26 @@ let mNotificaciones = {
   },
   getAll: async (dni, type, read) => {
     try {
-      let query = `
-        SELECT 
+      const conditions = [sql`n.id_persona = ${dni}`];
+
+      if (type !== undefined && type !== null) {
+        conditions.push(sql`n.tipo = ${type}`);
+      }
+      if (read) {
+        // 'read' aquí debe ser booleano o 0/1
+        conditions.push(sql`n.leido = ${read}`);
+      }
+
+      // Damos formato a la cláusula WHERE uniendo con AND
+      // Empezamos por la primera condición
+      let whereClause = conditions.shift();
+      for (const cond of conditions) {
+        whereClause = sql`${whereClause} AND ${cond}`;
+      }
+
+      // Ejecutamos la consulta completa
+      const notifications = await sql`
+        SELECT
           n.id,
           n.tipo,
           n.leido,
@@ -48,34 +66,18 @@ let mNotificaciones = {
           p.title,
           p.foto
         FROM notificaciones n
-        INNER JOIN usuarios u 
+        INNER JOIN usuarios u
           ON n.id_ejecutor = u.dni
         LEFT JOIN publicaciones p
           ON n.id_publi = p.id
-        WHERE n.id_persona = $1
+        WHERE ${whereClause}
+        ORDER BY n.fecha_creacion DESC
+        LIMIT 50
       `;
-      let params = [dni];
 
-      let conditions = [];
-      if (type) {
-        conditions.push(`n.tipo = $${params.length + 1}`);
-        params.push(type);
-      }
-      if (typeof read === "boolean") {
-        conditions.push(`n.leido = $${params.length + 1}`);
-        params.push(read);
-      }
-
-      if (conditions.length > 0) {
-        query += " AND " + conditions.join(" AND ");
-      }
-
-      query += " ORDER BY n.fecha_creacion DESC LIMIT 50";
-
-      const results = await sql(query, params);
-
-      return results;
+      return notifications; // Neon ya devuelve un array de filas
     } catch (err) {
+      console.error("Error retrieving notifications:", err);
       throw {
         status: 500,
         message: `Error retrieving notifications for dni ${dni}`,
