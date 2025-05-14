@@ -101,6 +101,8 @@ let cPetition = {
 
       await mPeticiones.delete({ dni, dniSession });
       await mAmigos.create({ dni, dniSession });
+      await cNotificaciones.create(req, dni, "follow");
+
       console.log("bien");
       res.send(
         JSON.stringify({

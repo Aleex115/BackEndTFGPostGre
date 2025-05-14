@@ -17,10 +17,10 @@ let cNotificaciones = {
         let message;
         switch (notification.tipo) {
           case "follow":
-            message = `started following you.`;
+            message = `is now your friend.`;
             break;
           case "unfollow":
-            message = `stopped following you.`;
+            message = `is no longer you friend.`;
             break;
           case "requested":
             message = `sent you a friend request.`;
@@ -92,6 +92,7 @@ let cNotificaciones = {
 
   create: async (req, dni, tipo, id_publi) => {
     try {
+      console.log(dni, tipo);
       if (!dni || !tipo) {
         throw {
           status: 500,

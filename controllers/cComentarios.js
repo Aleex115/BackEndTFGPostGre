@@ -6,11 +6,15 @@ let cComentarios = {
   create: async (req, res) => {
     try {
       let { dni, id, com, dniPublication } = req.body;
-      console.log(dni, id, com);
 
       if (!dni) {
         dni = req.session.user.dni;
       }
+      console.log(dni);
+      console.log(id);
+      console.log(com);
+      console.log(dniPublication);
+
       if (!dni || !id || !com || !dniPublication)
         throw {
           status: 400,
