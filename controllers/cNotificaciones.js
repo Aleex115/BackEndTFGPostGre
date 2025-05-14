@@ -5,12 +5,13 @@ let cNotificaciones = {
   getAll: async (req, res) => {
     try {
       let dni = req.session.user.dni;
+      let { type, read } = req.query;
 
       if (!dni) {
         throw { status: 400, message: "DNI is required." };
       }
 
-      let results = await mNotificaciones.getAll(dni);
+      let results = await mNotificaciones.getAll(dni, type, read);
 
       results = results.map((notification) => {
         let message;

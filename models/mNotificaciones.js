@@ -34,9 +34,9 @@ let mNotificaciones = {
       };
     }
   },
-  getAll: async (dni) => {
+  getAll: async (dni, type, read) => {
     try {
-      let results = await db`
+      let query = db`
       SELECT 
         n.id,
         n.tipo,
@@ -53,9 +53,19 @@ let mNotificaciones = {
       LEFT JOIN publicaciones p
         ON n.id_publi = p.id
       WHERE n.id_persona = ${dni}
-      ORDER BY n.fecha_creacion DESC
-      LIMIT 50;
-    `;
+      `;
+
+      // Agregar filtros dinámicos
+      if (type) {
+        query = query.append(db` AND n.tipo = ${type}`);
+      }
+      if (read !== undefined) {
+        query = query.append(db` AND n.leido = ${read}`);
+      }
+
+      query = query.append(db` ORDER BY n.fecha_creacion DESC LIMIT 50`);
+
+      let results = await query;
       return results;
     } catch (err) {
       console.log(err);
