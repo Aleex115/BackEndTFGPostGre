@@ -20,7 +20,15 @@ cloudinary.config({
 // Usamos storage en memoria para evitar archivos temporales bloqueados, estos archivos se van a guardar en la ram y cuando se envíe la petición se borraran
 let storage = multer.memoryStorage();
 let upload = multer({ storage });
-let public_id;
+
+let obtenerId = (url) => {
+  if (url) {
+    let regex = /\/(?:v\d+\/)?([^\/]+\/[^\/]+)\.webp$/;
+    let match = url.match(regex);
+    let public_id = match ? match[1] : "";
+    return public_id;
+  }
+};
 
 let cPublicaciones = {
   create: [
@@ -60,14 +68,13 @@ let cPublicaciones = {
             })
             .end(webpBuffer);
         });
-        public_id = result.public_id;
+        let public_id = result.public_id;
 
         await mPublicaciones.create({
           title,
           descp,
           url: result.secure_url,
           dni: req.session.user.dni,
-          public_id,
         });
 
         // Respuesta
@@ -176,20 +183,19 @@ let cPublicaciones = {
   },
   delete: async (req, res) => {
     try {
-      let { dni, id, public_id } = req.query;
+      let { dni, id, url } = req.query;
 
       if (!dni) {
         dni = req.session.user.dni;
       }
-      if (!dni || !id)
+      if (!dni || !id || !url)
         throw {
           status: 400,
           message: `All fields are required.`,
         };
 
       await mPublicaciones.delete(dni, id);
-      console.log(public_id);
-      cloudinary.uploader.destroy(public_id);
+      cloudinary.uploader.destroy(obtenerId(url));
 
       res.send(
         JSON.stringify({

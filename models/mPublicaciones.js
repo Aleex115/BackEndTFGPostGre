@@ -5,8 +5,8 @@ let mPublicaciones = {
     try {
       let fecha = new Date().toISOString().split("T")[0];
       let results = await db`
-        INSERT INTO publicaciones (dni_persona, title, foto, descp, fecha_creacion, public_id)
-        VALUES (${publi.dni}, ${publi.title}, ${publi.url}, ${publi.descp}, ${fecha}, ${publi.public_id})
+        INSERT INTO publicaciones (dni_persona, title, foto, descp, fecha_creacion)
+        VALUES (${publi.dni}, ${publi.title}, ${publi.url}, ${publi.descp}, ${fecha})
         RETURNING *;
       `;
       return results;
