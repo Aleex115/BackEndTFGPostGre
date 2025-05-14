@@ -52,7 +52,7 @@ let mNotificaciones = {
         ON n.id_ejecutor = u.dni
       LEFT JOIN publicaciones p
         ON n.id_publi = p.id
-      WHERE n.id_persona = ${dni}
+      WHERE n.id_persona = '${dni}'
       `;
 
       // Agregar filtros dinámicos
