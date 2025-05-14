@@ -16,28 +16,28 @@ let cNotificaciones = {
         let message;
         switch (notification.tipo) {
           case "follow":
-            message = `${notification.username} started following you.`;
+            message = `started following you.`;
             break;
           case "unfollow":
-            message = `${notification.username} stopped following you.`;
+            message = `stopped following you.`;
             break;
           case "requested":
-            message = `${notification.username} sent you a friend request.`;
+            message = `sent you a friend request.`;
             break;
           case "unrequested":
-            message = `${notification.username} removed their like from your post.`;
+            message = `removed their like from your post.`;
             break;
           case "like":
-            message = `${notification.username} liked your post: "${notification.titulo_publicacion}".`;
+            message = `liked your post: "${notification.title}".`;
             break;
           case "dislike":
-            message = `${notification.username} disliked your post: "${notification.titulo_publicacion}".`;
+            message = `disliked your post: "${notification.title}".`;
             break;
           case "comment":
-            message = `${notification.username} commented on your post: "${notification.titulo_publicacion}".`;
+            message = `commented on your post: "${notification.title}".`;
             break;
           case "download":
-            message = `${notification.username} downloaded your content: "${notification.titulo_publicacion}".`;
+            message = `downloaded your content: "${notification.title}".`;
             break;
           default:
             message = `You have a new notification.`;
