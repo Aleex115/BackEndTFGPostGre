@@ -36,7 +36,8 @@ let mNotificaciones = {
   },
   getAll: async (dni, type, read) => {
     try {
-      let query = `
+      // Construir la consulta base
+      let baseQuery = `
       SELECT 
         n.id,
         n.tipo,
@@ -52,22 +53,29 @@ let mNotificaciones = {
         ON n.id_ejecutor = u.dni
       LEFT JOIN publicaciones p
         ON n.id_publi = p.id
-      WHERE n.id_persona = '${dni}'
+      WHERE n.id_persona = ${dni}
       `;
 
-      // Agregar filtros dinámicos
+      // Acumular condiciones dinámicas
+      let conditions = [];
       if (type) {
-        query += ` AND n.tipo = ${type}`;
+        conditions.push(`n.tipo = ${type}`);
       }
       if (read !== undefined) {
-        query += ` AND n.leido = ${read}`;
+        conditions.push(`n.leido = ${read}`);
       }
 
-      query += ` ORDER BY n.fecha_creacion DESC LIMIT 50`;
-      console.log(query);
+      // Agregar las condiciones dinámicas a la consulta
+      if (conditions.length > 0) {
+        baseQuery += " AND " + conditions.join(" AND ");
+      }
 
-      let results = await db.query(query);
-      return results;
+      // Agregar orden y límite
+      baseQuery += " ORDER BY n.fecha_creacion DESC LIMIT 50";
+
+      // Ejecutar la consulta
+      let results = await db.raw(baseQuery);
+      return results.rows;
     } catch (err) {
       console.log(err);
       throw {
