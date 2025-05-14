@@ -6,7 +6,6 @@ let cNotificaciones = {
     try {
       let dni = req.session.user.dni;
       let { type, read } = req.query;
-      console.log(type, read);
 
       if (!dni) {
         throw { status: 400, message: "DNI is required." };

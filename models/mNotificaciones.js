@@ -36,48 +36,39 @@ let mNotificaciones = {
   },
   getAll: async (dni, type, read) => {
     try {
-      const conditions = [db`n.id_persona = ${dni}`];
-
-      if (type !== undefined && type !== null) {
-        conditions.push(db`n.tipo = ${type}`);
-      }
-      if (read) {
-        // 'read' aquí debe ser booleano o 0/1
-        conditions.push(db`n.leido = ${read}`);
-      }
-
-      // Damos formato a la cláusula WHERE uniendo con AND
-      // Empezamos por la primera condición
-      let whereClause = conditions.shift();
-      for (const cond of conditions) {
-        whereClause = db`${whereClause} AND ${cond}`;
-      }
-
-      // Ejecutamos la consulta completa
-      const notifications = await db`
-        SELECT
-          n.id,
-          n.tipo,
-          n.leido,
-          n.fecha_creacion,
-          n.id_ejecutor,
-          u.username,
-          u.foto_perfil,
-          p.title,
-          p.foto
-        FROM notificaciones n
-        INNER JOIN usuarios u
-          ON n.id_ejecutor = u.dni
-        LEFT JOIN publicaciones p
-          ON n.id_publi = p.id
-        WHERE ${whereClause}
-        ORDER BY n.fecha_creacion DESC
-        LIMIT 50
+      let query = `
+      SELECT 
+        n.id,
+        n.tipo,
+        n.leido,
+        n.fecha_creacion,
+        n.id_ejecutor,
+        u.username,
+        u.foto_perfil,
+        p.title,
+        p.foto
+      FROM notificaciones n
+      INNER JOIN usuarios u 
+        ON n.id_ejecutor = u.dni
+      LEFT JOIN publicaciones p
+        ON n.id_publi = p.id
+      WHERE n.id_persona = '${dni}'
       `;
 
-      return notifications; // Neon ya devuelve un array de filas
+      // Agregar filtros dinámicos
+
+      if (type) {
+        query += ` AND n.tipo = '${type}'`;
+      }
+      if (read == "true") {
+        query += ` AND n.leido = ${!read}`;
+      }
+
+      query += ` ORDER BY n.fecha_creacion DESC LIMIT 50`;
+      let results = await db.query(query);
+      return results;
     } catch (err) {
-      console.error("Error retrieving notifications:", err);
+      console.log(err);
       throw {
         status: 500,
         message: `Error retrieving notifications for dni ${dni}`,
