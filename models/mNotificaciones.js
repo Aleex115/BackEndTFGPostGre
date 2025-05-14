@@ -36,48 +36,46 @@ let mNotificaciones = {
   },
   getAll: async (dni, type, read) => {
     try {
-      // Construir la consulta base
-      let baseQuery = `
-      SELECT 
-        n.id,
-        n.tipo,
-        n.leido,
-        n.fecha_creacion,
-        n.id_ejecutor,
-        u.username,
-        u.foto_perfil,
-        p.title,
-        p.foto
-      FROM notificaciones n
-      INNER JOIN usuarios u 
-        ON n.id_ejecutor = u.dni
-      LEFT JOIN publicaciones p
-        ON n.id_publi = p.id
-      WHERE n.id_persona = ${dni}
+      let query = `
+        SELECT 
+          n.id,
+          n.tipo,
+          n.leido,
+          n.fecha_creacion,
+          n.id_ejecutor,
+          u.username,
+          u.foto_perfil,
+          p.title,
+          p.foto
+        FROM notificaciones n
+        INNER JOIN usuarios u 
+          ON n.id_ejecutor = u.dni
+        LEFT JOIN publicaciones p
+          ON n.id_publi = p.id
+        WHERE n.id_persona = $1
       `;
+      let params = [dni];
 
-      // Acumular condiciones dinámicas
       let conditions = [];
       if (type) {
-        conditions.push(`n.tipo = ${type}`);
+        conditions.push(`n.tipo = $${params.length + 1}`);
+        params.push(type);
       }
-      if (read !== undefined) {
-        conditions.push(`n.leido = ${read}`);
+      if (typeof read === "boolean") {
+        conditions.push(`n.leido = $${params.length + 1}`);
+        params.push(read);
       }
 
-      // Agregar las condiciones dinámicas a la consulta
       if (conditions.length > 0) {
-        baseQuery += " AND " + conditions.join(" AND ");
+        query += " AND " + conditions.join(" AND ");
       }
 
-      // Agregar orden y límite
-      baseQuery += " ORDER BY n.fecha_creacion DESC LIMIT 50";
+      query += " ORDER BY n.fecha_creacion DESC LIMIT 50";
 
-      // Ejecutar la consulta
-      let results = await db.raw(baseQuery);
-      return results.rows;
+      const results = await sql(query, params);
+
+      return results;
     } catch (err) {
-      console.log(err);
       throw {
         status: 500,
         message: `Error retrieving notifications for dni ${dni}`,

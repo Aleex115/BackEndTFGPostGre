@@ -90,8 +90,7 @@ let cPublicaciones = {
     try {
       let username = req.query.username || req.session.user.username;
       let usernameSession = req.session.user.username;
-      let title = req.query.title || "";
-      let descp = req.query.descp || "";
+      let filter = req.query.filter || "";
 
       let limit = 9;
       let offset = parseInt(req.query.offset);
@@ -113,8 +112,7 @@ let cPublicaciones = {
         { username, usernameSession },
         limit,
         offset,
-        title,
-        descp
+        title
       );
 
       res.send(
@@ -137,8 +135,7 @@ let cPublicaciones = {
     try {
       let limit = 9;
       let offset = parseInt(req.query.offset) || 0;
-      let title = req.query.title || "";
-      let descp = req.query.descp || "";
+      let filter = req.query.filter || "";
 
       let totalPublicaciones = await mPublicaciones.countPublic();
 
@@ -155,8 +152,7 @@ let cPublicaciones = {
       let publicaciones = await mPublicaciones.getAllFromPaginated(
         limit,
         offset,
-        title,
-        descp
+        filter
       );
 
       res.send(
