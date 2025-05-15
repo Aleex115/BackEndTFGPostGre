@@ -101,14 +101,18 @@ let cNotificaciones = {
       }
       let dniSession = req.session.user.dni;
 
-      let result = await mNotificaciones.create(
-        dni,
-        tipo,
-        id_publi,
-        dniSession
-      );
+      if (dni != dniSession) {
+        let result = await mNotificaciones.create(
+          dni,
+          tipo,
+          id_publi,
+          dniSession
+        );
 
-      return result;
+        return result;
+      } else {
+        return null;
+      }
     } catch (err) {
       console.log(err);
       throw error;
