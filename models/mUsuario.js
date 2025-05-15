@@ -168,11 +168,17 @@ let mUsario = {
       `;
       return results;
     } catch (err) {
-      console.log(err);
-      throw {
-        status: 500,
-        message: `Error updating the profile data for ${user.username}`,
-      };
+      if (err.code === "23505") {
+        throw {
+          status: 403,
+          message: `The username '${user.username}' is already in use.`,
+        };
+      } else {
+        throw {
+          status: 500,
+          message: `Error updating the profile data for ${user.username}`,
+        };
+      }
     }
   },
   delete: async (dni) => {

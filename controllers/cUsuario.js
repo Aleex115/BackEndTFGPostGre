@@ -214,8 +214,11 @@ let cUser = {
         }
         if (err.status === 400) {
           return error.e400(req, res, err);
+        } else if (err.status === 403) {
+          error.e403(req, res, err);
+        } else {
+          error.e500(req, res, err);
         }
-        return error.e500(req, res, err);
       }
     },
   ],
