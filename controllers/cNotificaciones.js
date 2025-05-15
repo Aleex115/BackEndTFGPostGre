@@ -26,7 +26,7 @@ let cNotificaciones = {
             message = `sent you a friend request.`;
             break;
           case "unrequested":
-            message = `removed their like from your post.`;
+            message = `declined your petition.`;
             break;
           case "like":
             message = `liked your post: "${notification.title}".`;
