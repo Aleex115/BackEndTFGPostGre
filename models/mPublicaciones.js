@@ -77,7 +77,7 @@ let mPublicaciones = {
       };
     }
   },
-  getAllFromPaginated: async (limit, offset, filter) => {
+  getAllFromPaginated: async (limit, offset, filter, username) => {
     try {
       let results = await db`
         SELECT 
@@ -92,7 +92,8 @@ let mPublicaciones = {
           EXISTS (
             SELECT 1 
             FROM darlike d 
-            WHERE d.id_publi = p.id
+            JOIN usuarios u2 ON d.dni_persona = u2.dni 
+            WHERE u2.username = ${username} AND d.id_publi = p.id
           ) AS "hasLiked"
         FROM publicaciones p 
         JOIN usuarios u ON p.dni_persona = u.dni 

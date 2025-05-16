@@ -146,6 +146,7 @@ let cPublicaciones = {
       let limit = 9;
       let offset = parseInt(req.query.offset) || 0;
       let filter = req.query.filter || "";
+      let usernameSession = req.session.user.username || "";
 
       let totalPublicaciones = await mPublicaciones.countPublic(filter);
 
@@ -162,7 +163,8 @@ let cPublicaciones = {
       let publicaciones = await mPublicaciones.getAllFromPaginated(
         limit,
         offset,
-        filter
+        filter,
+        usernameSession
       );
 
       res.send(
