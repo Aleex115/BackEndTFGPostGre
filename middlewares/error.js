@@ -36,7 +36,8 @@ let error = {
     res.status(500).send(
       JSON.stringify({
         title: "Error 500 Internal Server",
-        message: err.message,
+        message:
+          "An unexpected error occurred on the server. Please try again later.",
       })
     );
   },
