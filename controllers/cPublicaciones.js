@@ -229,7 +229,8 @@ let cPublicaciones = {
           message: `All fields are required.`,
         };
       url = decodeURIComponent(url);
-      quality = quality || 100;
+      quality = quality || 80;
+      format = format || "jpg";
 
       let response = await fetch(url);
       let arrayBuffer = await response.arrayBuffer();
