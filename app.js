@@ -13,7 +13,7 @@ import routesPeticiones from "./routes/rPeticiones.js";
 import routesNotificaciones from "./routes/rNotificaciones.js";
 
 import { createClient } from "redis";
-import { RedisStore } from "connect-redis"; // ✅ Named export, no default
+import { RedisStore } from "connect-redis";
 
 import dotenv from "dotenv";
 
@@ -31,7 +31,7 @@ redisClient.connect().catch(console.error);
 app.use(
   cors({
     origin: ["https://image-hub-sigma.vercel.app", "http://localhost:4200"],
-    credentials: true, // Permite el envío de cookies y credenciales
+    credentials: true,
   })
 );
 
@@ -45,19 +45,18 @@ app.use(
   session({
     store: new RedisStore({ client: redisClient }),
     name: "sid",
-    resave: false,
-    saveUninitialized: false,
+    resave: true,
+    saveUninitialized: true,
     secret: process.env.SESSION_SECRET,
     cookie: {
-      secure: true, // sólo HTTPS
-      sameSite: "None", // permite envío cross-site
+      secure: true,
+      sameSite: "None",
       httpOnly: true,
       maxAge: 7 * 24 * 60 * 60 * 1000,
     },
   })
 );
 
-// ——— Rutas ———
 app.use(routesUsuarios);
 app.use(routesPublicaciones);
 app.use(isAuthenticated, routesLike);
@@ -65,11 +64,9 @@ app.use(isAuthenticated, routesComentarios);
 app.use(isAuthenticated, routesAmigos);
 app.use(isAuthenticated, routesPeticiones);
 app.use(isAuthenticated, routesNotificaciones);
-
 // Middleware de error 404
 app.use(error.e404);
 
-// Arranque del servidor
 app.listen(port, () => {
   console.log(`🚀 Servidor escuchando en http://localhost:${port}`);
 });
