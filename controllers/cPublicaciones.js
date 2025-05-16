@@ -146,7 +146,12 @@ let cPublicaciones = {
       let limit = 9;
       let offset = parseInt(req.query.offset) || 0;
       let filter = req.query.filter || "";
-      let usernameSession = req.session.user.username || "";
+      let usernameSession;
+      if (req.session.user) {
+        usernameSession = req.session.user.username;
+      } else {
+        usernameSession = "";
+      }
 
       let totalPublicaciones = await mPublicaciones.countPublic(filter);
 
