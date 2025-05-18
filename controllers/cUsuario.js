@@ -129,11 +129,10 @@ let cUser = {
             return res.status(500).json({ message: "Error logging out." });
           }
 
-          // Elimina la cookie del lado del cliente
           res.clearCookie("connect.sid", {
             path: "/",
             httpOnly: true,
-            secure: false,
+            secure: true,
           });
 
           res.status(200).json({ message: "Logged out successfully." });
@@ -142,7 +141,7 @@ let cUser = {
         res.clearCookie("connect.sid", {
           path: "/",
           httpOnly: true,
-          secure: false,
+          secure: true,
         });
 
         res.status(200).json({ message: "Logged out successfully." });
@@ -152,7 +151,7 @@ let cUser = {
       res.clearCookie("connect.sid", {
         path: "/",
         httpOnly: true,
-        secure: false,
+        secure: true,
       });
     }
   },
