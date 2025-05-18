@@ -122,13 +122,23 @@ let cUser = {
     }
   },
   logout: (req, res) => {
-    if (req.session) {
-      req.session.destroy((err) => {
-        if (err) {
-          return res.status(500).json({ message: "Error logging out." });
-        }
+    try {
+      if (req.session) {
+        req.session.destroy((err) => {
+          if (err) {
+            return res.status(500).json({ message: "Error logging out." });
+          }
 
-        // Elimina la cookie del lado del cliente
+          // Elimina la cookie del lado del cliente
+          res.clearCookie("connect.sid", {
+            path: "/",
+            httpOnly: true,
+            secure: false,
+          });
+
+          res.status(200).json({ message: "Logged out successfully." });
+        });
+      } else {
         res.clearCookie("connect.sid", {
           path: "/",
           httpOnly: true,
@@ -136,15 +146,14 @@ let cUser = {
         });
 
         res.status(200).json({ message: "Logged out successfully." });
-      });
-    } else {
+      }
+    } catch (error) {
+      console.log(error);
       res.clearCookie("connect.sid", {
         path: "/",
         httpOnly: true,
         secure: false,
       });
-
-      res.status(200).json({ message: "Logged out successfully." });
     }
   },
   updateProfile: [
