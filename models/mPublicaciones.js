@@ -64,7 +64,7 @@ let mPublicaciones = {
           p.foto, 
           p.descp, 
           p.fecha_creacion, 
-          p.id, 
+          p.id
         FROM publicaciones p 
         WHERE p.dni_persona LIKE ${dni}
       `;
